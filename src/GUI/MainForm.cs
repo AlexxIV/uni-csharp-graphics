@@ -15,17 +15,16 @@ namespace Draw
 		/// Агрегирания диалогов процесор във формата улеснява манипулацията на модела.
 		/// </summary>
 		private DialogProcessor dialogProcessor = new DialogProcessor();
-        bool startPaint = false;
         Graphics g;
-        int? initX = null;
-        int? initY = null;
-        float penWidth;
         public MainForm()
 		{
 			//
 			// The InitializeComponent() call is required for Windows Forms designer support.
 			//
 			InitializeComponent();
+            dialogProcessor.StartPainting = false;
+            dialogProcessor.InitX = null;
+            dialogProcessor.InitY = null;
             g = viewPort.CreateGraphics();
 
             //
@@ -85,7 +84,7 @@ namespace Draw
 					viewPort.Invalidate();
 			} else
             {
-                startPaint = true;
+                dialogProcessor.StartPainting = true;
             }
 		}
 
@@ -95,12 +94,9 @@ namespace Draw
 		/// </summary>
 		void ViewPortMouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
-            if(startPaint)
+            if(dialogProcessor.StartPainting)
             {
-                Pen p = new Pen(Color.Black, this.penWidth);
-                g.DrawLine(p, new Point(initX ?? e.X, initY ?? e.Y), new Point(e.X, e.Y));
-                initX = e.X;
-                initY = e.Y;
+                dialogProcessor.FreeDraw(g, e.X, e.Y);
             }
 
 			if (dialogProcessor.IsDragging) {
@@ -117,10 +113,10 @@ namespace Draw
 		void ViewPortMouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
 		{
 			dialogProcessor.IsDragging = false;
+            dialogProcessor.StartPainting = false;
+            dialogProcessor.InitX = null;
+            dialogProcessor.InitY = null;
 
-            startPaint = false;
-            initX = null;
-            initY = null;
 		}
 
         private void drawEllipseSpeedButton_Click(object sender, EventArgs e)
@@ -194,7 +190,7 @@ namespace Draw
 
         private void sizeBar_ValueChanged(object sender, EventArgs e)
         {
-            this.penWidth = sizeBar.Value;
+            dialogProcessor.PenWidth = sizeBar.Value;
         }
     }
 }

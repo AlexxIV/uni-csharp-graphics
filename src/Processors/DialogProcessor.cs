@@ -15,16 +15,21 @@ namespace Draw
 		
 		public DialogProcessor()
 		{
+
 		}
-		
-		#endregion
-		
-		#region Properties
-		
-		/// <summary>
-		/// Избран елемент.
-		/// </summary>
-		private List <Shape> selection = new List<Shape>() ;
+
+        #endregion
+
+        #region Properties
+        public bool StartPainting { get; set; }
+        //Graphics g;
+        public int? InitX { get; set; }
+        public int? InitY { get; set; }
+        public float PenWidth { get; set; }
+        /// <summary>
+        /// Избран елемент.
+        /// </summary>
+        private List <Shape> selection = new List<Shape>() ;
         public List<Shape> Selection {
 			get { return selection; }
 			set { selection = value; }
@@ -48,13 +53,12 @@ namespace Draw
 			get { return lastLocation; }
 			set { lastLocation = value; }
 		}
-		
-		#endregion
-		
-		/// <summary>
-		/// Добавя примитив - правоъгълник на произволно място върху клиентската област.
-		/// </summary>
-		public void AddRandomRectangle()
+        #endregion
+
+        /// <summary>
+        /// Добавя примитив - правоъгълник на произволно място върху клиентската област.
+        /// </summary>
+        public void AddRandomRectangle()
 		{
 			Random rnd = new Random();
 			int x = rnd.Next(100,1000);
@@ -111,6 +115,14 @@ namespace Draw
             rect.BoarderColor = Color.Black;
 
             ShapeList.Add(rect);
+        }
+
+        internal void FreeDraw(Graphics grfx, int x, int y)
+        {
+            Pen p = new Pen(Color.Black, this.PenWidth);
+            grfx.DrawLine(p, new Point(this.InitX ?? x, this.InitY ?? y), new Point(x, y));
+            this.InitX = x;
+            this.InitY = y;
         }
 
         /// <summary>
