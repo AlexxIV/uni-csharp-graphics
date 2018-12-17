@@ -14,6 +14,8 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,10 +28,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -52,8 +52,10 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -68,6 +70,12 @@
     <Compile Include="src\GUI\DoubleBufferedPanel.Designer.cs">
       <DependentUpon>DoubleBufferedPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="src\GUI\InitialForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="src\GUI\InitialForm.Designer.cs">
+      <DependentUpon>InitialForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="src\GUI\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,10 +83,15 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="src\GUI\Program.cs" />
+    <Compile Include="src\Model\CircleShape.cs" />
     <Compile Include="src\Model\EllipseShape.cs" />
     <Compile Include="src\Model\GroupShape.cs" />
     <Compile Include="src\Model\RectangleShape.cs" />
     <Compile Include="src\Model\Shape.cs" />
+    <Compile Include="src\Model\TestModels\Envelope.cs" />
+    <Compile Include="src\Model\TestModels\House.cs" />
+    <Compile Include="src\Model\TestModels\MercedesLogo.cs" />
+    <Compile Include="src\Model\ToolModes.cs" />
     <Compile Include="src\Processors\DialogProcessor.cs" />
     <Compile Include="src\Processors\DisplayProcessor.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -87,6 +100,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="src\GUI\DoubleBufferedPanel.resx">
       <DependentUpon>DoubleBufferedPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="src\GUI\InitialForm.resx">
+      <DependentUpon>InitialForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="src\GUI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

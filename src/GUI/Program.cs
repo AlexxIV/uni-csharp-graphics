@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Draw.src.GUI;
+using System;
 using System.Windows.Forms;
 
 namespace Draw
@@ -16,8 +17,8 @@ namespace Draw
 		{
 			Application.EnableVisualStyles();
 			Application.SetCompatibleTextRenderingDefault(false);
-			Application.Run(new MainForm());
-		}
+			Application.Run(new InitialForm());
+        }
 		
 	}
 }

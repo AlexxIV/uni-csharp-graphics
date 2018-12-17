@@ -3,17 +3,22 @@ using System.Drawing;
 
 namespace Draw
 {
+    /// <summary>
+    /// Класът правоъгълник е основен примитив, който е наследник на базовия Shape.
+    /// </summary>
 
     [Serializable]
-    public class EllipseShape : Shape
+    public class Envelope : Shape
     {
+        static int nameCounter = 0;
+
         #region Constructor
 
-        public EllipseShape(RectangleF rect) : base(rect)
+        public Envelope(RectangleF rect) : base(rect)
         {
         }
 
-        public EllipseShape(EllipseShape ellipse) : base(ellipse)
+        public Envelope(RectangleShape rectangle) : base(rectangle)
         {
         }
 
@@ -29,16 +34,9 @@ namespace Draw
         public override bool Contains(PointF point)
         {
             if (base.Contains(point))
-            {
-                float a = Width / 2;
-                float b = Height / 2;
-           
-                return 
-                    Math.Pow((point.X -(Location.X +a))/a,2) +
-                    Math.Pow((point.Y - (Location.Y + b) ) / b, 2) - 1 <= 0;
-                    ;
-
-            }
+                // Проверка дали е в обекта само, ако точката е в обхващащия правоъгълник.
+                // В случая на правоъгълник - директно връщаме true
+                return true;
             else
                 // Ако не е в обхващащия правоъгълник, то неможе да е в обекта и => false
                 return false;
@@ -51,9 +49,13 @@ namespace Draw
         {
             base.DrawSelf(grfx);
 
-            grfx.FillEllipse(new SolidBrush(FillColor), Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height);
-            grfx.DrawEllipse(new Pen(BoarderColor, BoarderWidth), Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height);
-            
+            grfx.FillRectangle(new SolidBrush(FillColor), Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height);
+
+            grfx.DrawRectangle(new Pen(BoarderColor, BoarderWidth), Rectangle.X, Rectangle.Y, Rectangle.Width, Rectangle.Height);
+
+            grfx.DrawLine(new Pen(BoarderColor, BoarderWidth), Rectangle.X, Rectangle.Y, Rectangle.X + Rectangle.Width / 2, Rectangle.Y + Rectangle.Height / 2);
+
+            grfx.DrawLine(new Pen(BoarderColor, BoarderWidth), Rectangle.X + Rectangle.Width / 2, Rectangle.Y + Rectangle.Height / 2, Rectangle.X + Rectangle.Width, Rectangle.Y);
         }
     }
 }

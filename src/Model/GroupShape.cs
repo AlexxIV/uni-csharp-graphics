@@ -90,7 +90,38 @@ namespace Draw
           
         }
 
+        internal void Resize(float scaleFactor)
+        {
+            foreach (var element in SubItems)
+            {
+                if (element is GroupShape)
+                {
+                    (element as GroupShape).Resize(scaleFactor);
+                }
+                else
+                {
+                    element.Width = element.Width * scaleFactor;
+                    element.Height = element.Height * scaleFactor;
+                }
+                InvalidategroupShape();
+            }
+        }
 
+        private void InvalidategroupShape()
+        {
+            float minX = float.PositiveInfinity;
+            float minY = float.PositiveInfinity;
+            float maxX = float.NegativeInfinity; ;
+            float maxY = float.NegativeInfinity;
+            foreach (var item in SubItems)
+            {
+                if (minX > item.Location.X) minX = item.Location.X;
+                if (minY > item.Location.Y) minY = item.Location.Y;
+                if (maxX < item.Location.X + item.Width) maxX = item.Location.X + item.Width;
+                if (maxY < item.Location.Y + item.Height) maxY = item.Location.Y + item.Height;
+            }
+            this.Rectangle = new RectangleF(minX, minY, maxX - minX, maxY - minY);
+        }
     }
 }
 

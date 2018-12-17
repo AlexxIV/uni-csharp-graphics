@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Draw.src.Model;
 
 namespace Draw
 {
@@ -15,17 +16,11 @@ namespace Draw
 		
 		public DialogProcessor()
 		{
-
 		}
 
         #endregion
 
         #region Properties
-        public bool StartPainting { get; set; }
-        //Graphics g;
-        public int? InitX { get; set; }
-        public int? InitY { get; set; }
-        public float PenWidth { get; set; }
         /// <summary>
         /// Избран елемент.
         /// </summary>
@@ -53,20 +48,27 @@ namespace Draw
 			get { return lastLocation; }
 			set { lastLocation = value; }
 		}
+
+        public float BoarderWidth;
+        public ToolSet CurrentTool = ToolSet.Selection;
         #endregion
 
         /// <summary>
         /// Добавя примитив - правоъгълник на произволно място върху клиентската област.
         /// </summary>
-        public void AddRandomRectangle()
+        public void AddRectangle(bool isRandom = false, int x = 0, int y = 0)
 		{
-			Random rnd = new Random();
-			int x = rnd.Next(100,1000);
-			int y = rnd.Next(100,600);
-			
+            if (isRandom)
+            {
+                Random rnd = new Random();
+                x = rnd.Next(100, 1000);
+                y = rnd.Next(100, 600);
+            }
+		    			
 			RectangleShape rect = new RectangleShape(new Rectangle(x,y,100,200));
 			rect.FillColor = Color.White;
             rect.BoarderColor = Color.Black;
+            rect.BoarderWidth = BoarderWidth;
 
 			ShapeList.Add(rect);
 		}
@@ -81,48 +83,66 @@ namespace Draw
 		public Shape ContainsPoint(PointF point)
 		{
 			for(int i = ShapeList.Count - 1; i >= 0; i--){
-				if (ShapeList[i].Contains(point)){
-					//ShapeList[i].FillColor = Color.Red;
-						
+				if (ShapeList[i].Contains(point)){						
 					return ShapeList[i];
 				}	
 			}
 			return null;
 		}
 
-        internal void AddRandomEllipse()
+        internal void AddEllipse(bool isRandom = false, int x = 0, int y = 0)
         {
-            Random rnd = new Random();
-            int x = rnd.Next(100, 1000);
-            int y = rnd.Next(100, 600);
-
+            if (isRandom)
+            {
+                Random rnd = new Random();
+                x = rnd.Next(100, 1000);
+                y = rnd.Next(100, 600);
+            }
+            
             EllipseShape rect = new EllipseShape(new Rectangle(x, y, 200, 100));
             rect.FillColor = Color.White;
             rect.BoarderColor = Color.Black;
+            rect.BoarderWidth = BoarderWidth;
 
             ShapeList.Add(rect);
         }
 
-        internal void AddRandomDot(bool line = false)
+        internal void AddCircle(bool isRandom = false, int x = 0, int y = 0)
         {
-            Random rnd = new Random();
-            int x = rnd.Next(100, 1000);
-            int y = rnd.Next(100, 600);
+            if (isRandom)
+            {
+                Random rnd = new Random();
+                x = rnd.Next(100, 1000);
+                y = rnd.Next(100, 600);
+            }
 
-
-            RectangleShape rect = new RectangleShape(new Rectangle(x, y, line ? 50 : 1, 1));
+            Circle rect = new Circle(new Rectangle(x, y, 200, 200));
             rect.FillColor = Color.White;
             rect.BoarderColor = Color.Black;
+            rect.BoarderWidth = BoarderWidth;
 
             ShapeList.Add(rect);
+
+            
         }
 
-        internal void FreeDraw(Graphics grfx, int x, int y)
+        internal void AddSquare(bool isRandom = false, int x = 0, int y = 0)
         {
-            Pen p = new Pen(Color.Black, this.PenWidth);
-            grfx.DrawLine(p, new Point(this.InitX ?? x, this.InitY ?? y), new Point(x, y));
-            this.InitX = x;
-            this.InitY = y;
+            if (isRandom)
+            {
+                Random rnd = new Random();
+                x = rnd.Next(100, 1000);
+                y = rnd.Next(100, 600);
+            }
+
+            RectangleShape rect = new RectangleShape(new Rectangle(x, y, 100, 100));
+            rect.FillColor = Color.White;
+            rect.BoarderColor = Color.Black;
+            rect.BoarderWidth = BoarderWidth;
+
+            ShapeList.Add(rect);
+
+
         }
 
         /// <summary>
@@ -139,13 +159,17 @@ namespace Draw
         }
 
         public void TranslateTo(PointF p)
-
-
 		{
-            //if (selection != null)
             foreach (var item in Selection){
 				item.Location = new PointF(item.Location.X + p.X - lastLocation.X, item.Location.Y + p.Y - lastLocation.Y);
 				
+                if (item is GroupShape)
+                {
+                    foreach(var element in (item as GroupShape).SubItems)
+                    {
+                        element.Location = new PointF(element.Location.X + p.X - LastLocation.X, element.Location.Y + p.Y - LastLocation.Y);
+                    }
+                }
 			}
             lastLocation = p;
         }
@@ -213,7 +237,6 @@ namespace Draw
             BinaryFormatter bf = new BinaryFormatter();
             bf.Serialize(fs, ShapeList);
             fs.Close();
-                //filemode ima za otvarqne i dr...
         }
 
         internal void Delete()
@@ -223,9 +246,50 @@ namespace Draw
                 ShapeList.Remove(item);
                 Selection = new List<Shape>();
             }
-
-
         }
 
+        // Testing
+
+        public void AddMercedes()
+        {
+            Random rnd = new Random();
+            int x = rnd.Next(100, 1000);
+            int y = rnd.Next(100, 600);
+
+            MercedesLogo rect = new MercedesLogo(new Rectangle(x, y, 200, 200));
+            rect.FillColor = Color.White;
+            rect.BoarderColor = Color.Black;
+            rect.BoarderWidth = BoarderWidth;
+
+            ShapeList.Add(rect);
+        }
+
+        public void AddHouse()
+        {
+            Random rnd = new Random();
+            int x = rnd.Next(100, 1000);
+            int y = rnd.Next(100, 600);
+
+            HouseShape rect = new HouseShape(new Rectangle(x, y, 200, 200));
+            rect.FillColor = Color.White;
+            rect.BoarderColor = Color.Black;
+            rect.BoarderWidth = BoarderWidth;
+
+            ShapeList.Add(rect);
+        }
+
+        public void AddEnvelope()
+        {
+            Random rnd = new Random();
+            int x = rnd.Next(100, 1000);
+            int y = rnd.Next(100, 600);
+
+            Envelope rect = new Envelope(new Rectangle(x, y, 200, 200));
+            rect.FillColor = Color.White;
+            rect.BoarderColor = Color.Black;
+            rect.BoarderWidth = BoarderWidth;
+
+            ShapeList.Add(rect);
+        }
     }
 }
