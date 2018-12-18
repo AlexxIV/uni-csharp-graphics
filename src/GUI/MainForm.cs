@@ -102,7 +102,6 @@ namespace Draw
             {
                 dialogProcessor.AddRectangle(false, e.X, e.Y);
                 viewPort.Invalidate();
-                //ReloadShapesList();
             }
             else if(dialogProcessor.CurrentTool == ToolSet.DrawCircle)
             {
@@ -183,11 +182,6 @@ namespace Draw
 
         }
 
-        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // TODO
-        }
-
         //private void ReloadShapesList()
         //{
         //    comboShapes.Items.Clear();
@@ -202,7 +196,9 @@ namespace Draw
         {
             pickUpSpeedButton.Checked =
                        drawEllipseSpeedButton.Checked =
-                       drawRectangleSpeedButton.Checked = false;
+                       drawRectangleSpeedButton.Checked =
+                       drawCircleSpeedButton.Checked =
+                       drawSquareSpeedButton.Checked = false;
 
             switch (dialogProcessor.CurrentTool)
             {
@@ -212,19 +208,19 @@ namespace Draw
                     break;
                 case ToolSet.DrawEllipse:
                     drawEllipseSpeedButton.Checked = true;
-                    viewPort.Cursor = Cursors.Cross;
+                    viewPort.Cursor = Cursors.Hand;
                     break;
                 case ToolSet.DrawRectangle:
                     drawRectangleSpeedButton.Checked = true;
-                    viewPort.Cursor = Cursors.Cross;
+                    viewPort.Cursor = Cursors.Hand;
                     break;
                 case ToolSet.DrawCircle:
                     drawCircleSpeedButton.Checked = true;
-                    viewPort.Cursor = Cursors.Cross;
+                    viewPort.Cursor = Cursors.Hand;
                     break;
                 case ToolSet.DrawSquare:
                     drawSquareSpeedButton.Checked = true;
-                    viewPort.Cursor = Cursors.Cross;
+                    viewPort.Cursor = Cursors.Hand;
                     break;
             }
         }
@@ -330,26 +326,6 @@ namespace Draw
         private void squareToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dialogProcessor.AddSquare(true);
-            viewPort.Invalidate();
-        }
-
-        // Testing
-
-        private void mercedesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            dialogProcessor.AddMercedes();
-            viewPort.Invalidate();
-        }
-
-        private void houseToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            dialogProcessor.AddHouse();
-            viewPort.Invalidate();
-        }
-
-        private void envelopeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            dialogProcessor.AddEnvelope();
             viewPort.Invalidate();
         }
     }

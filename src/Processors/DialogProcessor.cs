@@ -49,7 +49,7 @@ namespace Draw
 			set { lastLocation = value; }
 		}
 
-        public float BoarderWidth;
+        public float BoarderWidth { get; set; }
         public ToolSet CurrentTool = ToolSet.Selection;
         #endregion
 
@@ -231,13 +231,6 @@ namespace Draw
         {
             Selection = new List<Shape>(ShapeList);
         }
-        public void SaveAs(string fileName)
-        {
-            FileStream fs = new FileStream(fileName, FileMode.Create);
-            BinaryFormatter bf = new BinaryFormatter();
-            bf.Serialize(fs, ShapeList);
-            fs.Close();
-        }
 
         internal void Delete()
         {
@@ -246,50 +239,6 @@ namespace Draw
                 ShapeList.Remove(item);
                 Selection = new List<Shape>();
             }
-        }
-
-        // Testing
-
-        public void AddMercedes()
-        {
-            Random rnd = new Random();
-            int x = rnd.Next(100, 1000);
-            int y = rnd.Next(100, 600);
-
-            MercedesLogo rect = new MercedesLogo(new Rectangle(x, y, 200, 200));
-            rect.FillColor = Color.White;
-            rect.BoarderColor = Color.Black;
-            rect.BoarderWidth = BoarderWidth;
-
-            ShapeList.Add(rect);
-        }
-
-        public void AddHouse()
-        {
-            Random rnd = new Random();
-            int x = rnd.Next(100, 1000);
-            int y = rnd.Next(100, 600);
-
-            HouseShape rect = new HouseShape(new Rectangle(x, y, 200, 200));
-            rect.FillColor = Color.White;
-            rect.BoarderColor = Color.Black;
-            rect.BoarderWidth = BoarderWidth;
-
-            ShapeList.Add(rect);
-        }
-
-        public void AddEnvelope()
-        {
-            Random rnd = new Random();
-            int x = rnd.Next(100, 1000);
-            int y = rnd.Next(100, 600);
-
-            Envelope rect = new Envelope(new Rectangle(x, y, 200, 200));
-            rect.FillColor = Color.White;
-            rect.BoarderColor = Color.Black;
-            rect.BoarderWidth = BoarderWidth;
-
-            ShapeList.Add(rect);
         }
     }
 }
