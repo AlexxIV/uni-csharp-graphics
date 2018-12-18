@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,10 +67,6 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.viewPort = new Draw.DoubleBufferedPanel();
-            this.devToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mercedesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.houseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.envelopeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.statusBar.SuspendLayout();
             this.speedMenu.SuspendLayout();
@@ -84,8 +79,7 @@
             this.fileToolStripMenuItem2,
             this.editToolStripMenuItem,
             this.imageToolStripMenuItem,
-            this.helpToolStripMenuItem,
-            this.devToolStripMenuItem});
+            this.helpToolStripMenuItem});
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Size = new System.Drawing.Size(750, 24);
@@ -95,23 +89,15 @@
             // fileToolStripMenuItem2
             // 
             this.fileToolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.saveAsToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem2.Name = "fileToolStripMenuItem2";
             this.fileToolStripMenuItem2.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem2.Text = "File";
             // 
-            // saveAsToolStripMenuItem
-            // 
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
-            this.saveAsToolStripMenuItem.Text = "Save as...";
-            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
-            // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(121, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItemClick);
             // 
@@ -442,37 +428,6 @@
             this.viewPort.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ViewPortMouseMove);
             this.viewPort.MouseUp += new System.Windows.Forms.MouseEventHandler(this.ViewPortMouseUp);
             // 
-            // devToolStripMenuItem
-            // 
-            this.devToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mercedesToolStripMenuItem,
-            this.houseToolStripMenuItem,
-            this.envelopeToolStripMenuItem});
-            this.devToolStripMenuItem.Name = "devToolStripMenuItem";
-            this.devToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
-            this.devToolStripMenuItem.Text = "Dev";
-            // 
-            // mercedesToolStripMenuItem
-            // 
-            this.mercedesToolStripMenuItem.Name = "mercedesToolStripMenuItem";
-            this.mercedesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.mercedesToolStripMenuItem.Text = "Mercedes";
-            this.mercedesToolStripMenuItem.Click += new System.EventHandler(this.mercedesToolStripMenuItem_Click);
-            // 
-            // houseToolStripMenuItem
-            // 
-            this.houseToolStripMenuItem.Name = "houseToolStripMenuItem";
-            this.houseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.houseToolStripMenuItem.Text = "House";
-            this.houseToolStripMenuItem.Click += new System.EventHandler(this.houseToolStripMenuItem_Click);
-            // 
-            // envelopeToolStripMenuItem
-            // 
-            this.envelopeToolStripMenuItem.Name = "envelopeToolStripMenuItem";
-            this.envelopeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.envelopeToolStripMenuItem.Text = "Envelope";
-            this.envelopeToolStripMenuItem.Click += new System.EventHandler(this.envelopeToolStripMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -521,7 +476,6 @@
         private System.Windows.Forms.ToolStripMenuItem ellipseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectAllToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripDropDownButton boarderWidthSelect;
         private System.Windows.Forms.ToolStripMenuItem ptToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ptToolStripMenuItem1;
@@ -538,9 +492,5 @@
         private System.Windows.Forms.ToolStripButton drawSquareSpeedButton;
         private System.Windows.Forms.ToolStripMenuItem squareToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem circleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem devToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mercedesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem houseToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem envelopeToolStripMenuItem;
     }
 }
